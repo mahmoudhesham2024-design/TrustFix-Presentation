@@ -3,377 +3,398 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عرض مشروع التخرج: TrustFix</title>
+    <title>مهام الأسبوع الثاني - TrustFix</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-        
+        :root {
+            --bg-color: #0F172A;
+            --card-bg: #1E293B;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --flutter-color: #38BDF8;
+            --backend-color: #10B981;
+            --ai-color: #F43F5E;
+            --data-color: #F59E0B;
+        }
+
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             margin: 0;
-            padding: 0;
-            font-family: 'Cairo', sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-            overflow: hidden;
+            padding: 20px;
+            line-height: 1.6;
         }
 
-        .slider-container {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-            transform: scale(0.95);
-            pointer-events: none;
+        .header h1 {
+            color: white;
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* القائمة الرئيسية */
+        .menu-container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            box-sizing: border-box;
-            background: radial-gradient(circle at top right, #1e293b, #0f172a);
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
-        .slide.active {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: auto;
-        }
-
-        .content-box {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid #334155;
-            border-radius: 20px;
-            padding: 3rem;
-            max-width: 1000px;
-            width: 100%;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            overflow-y: auto;
-            max-height: 85vh;
-        }
-
-        /* Scrollbar styling for long content */
-        .content-box::-webkit-scrollbar {
-            width: 8px;
-        }
-        .content-box::-webkit-scrollbar-thumb {
-            background: #3b82f6;
-            border-radius: 4px;
-        }
-
-        h1 {
-            color: #38bdf8;
-            font-size: 4rem;
-            text-align: center;
-            margin-bottom: 1rem;
-            text-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
-
-        h2 {
-            color: #fbbf24;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid #fbbf24;
-            padding-bottom: 0.5rem;
-            display: inline-block;
-        }
-
-        p {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            margin-bottom: 1rem;
-            color: #cbd5e1;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-right: 30px;
-            color: #e2e8f0;
-        }
-
-        li::before {
-            content: '🔥';
-            position: absolute;
-            right: 0;
-            top: 2px;
-        }
-
-        .highlight {
-            color: #38bdf8;
-            font-weight: bold;
-        }
-
-        .badge {
-            background: #2563eb;
+        .team-btn {
+            background-color: var(--card-bg);
             color: white;
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 1rem;
-            margin-right: 10px;
-        }
-
-        .controls {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            z-index: 100;
-        }
-
-        button.nav-btn {
-            background-color: #3b82f6;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            font-family: inherit;
+            border: 2px solid transparent;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 18px;
             font-weight: bold;
-            border-radius: 10px;
             cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        button.nav-btn:hover {
-            background-color: #2563eb;
-            transform: translateY(-2px);
+        .team-btn.flutter { border-color: var(--flutter-color); }
+        .team-btn.backend { border-color: var(--backend-color); }
+        .team-btn.ai { border-color: var(--ai-color); }
+        .team-btn.data { border-color: var(--data-color); }
+
+        .team-btn:hover {
+            transform: scale(1.02);
+            background-color: #27354a;
         }
 
-        button.nav-btn:disabled {
-            background-color: #475569;
-            cursor: not-allowed;
-            transform: none;
+        /* شاشة الباسورد */
+        #password-screen {
+            display: none;
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        .progress {
-            position: absolute;
-            bottom: 10px;
-            left: 0;
-            height: 5px;
-            background: #38bdf8;
-            transition: width 0.3s;
-            z-index: 100;
+        #password-screen h2 { margin-top: 0; color: white; }
+        
+        input[type="password"] {
+            width: 90%;
+            padding: 12px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid var(--text-muted);
+            background-color: #0B1120;
+            color: white;
+            font-size: 16px;
+            text-align: center;
         }
 
-        /* تنسيق حاوية جوجل فورم */
-        .google-form-container {
-            width: 100%;
-            height: 600px;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-top: 20px;
-            background-color: #fff; /* عشان الفورم يبان بوضوح */
-        }
-        .google-form-container iframe {
-            width: 100%;
-            height: 100%;
+        .auth-btns { display: flex; gap: 10px; justify-content: center;}
+        
+        .auth-btns button {
+            padding: 10px 20px;
             border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .btn-submit { background-color: var(--flutter-color); color: var(--bg-color); }
+        .btn-back { background-color: #475569; color: white; }
+        
+        #error-msg {
+            color: #ef4444;
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        /* محتوى الفرق */
+        .team-content { display: none; max-width: 800px; margin: 0 auto; }
+        
+        .team-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            border-top: 5px solid;
+        }
+
+        .team-card.flutter-card { border-color: var(--flutter-color); }
+        .team-card.backend-card { border-color: var(--backend-color); }
+        .team-card.ai-card { border-color: var(--ai-color); }
+        .team-card.data-card { border-color: var(--data-color); }
+
+        .team-title { font-size: 22px; font-weight: bold; margin-top: 0; margin-bottom: 15px; }
+        .flutter-card .team-title { color: var(--flutter-color); }
+        .backend-card .team-title { color: var(--backend-color); }
+        .ai-card .team-title { color: var(--ai-color); }
+        .data-card .team-title { color: var(--data-color); }
+
+        .intro-text { background-color: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; font-size: 14px; margin-bottom: 20px; }
+        h3 { font-size: 18px; margin-top: 25px; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+        ul { padding-right: 20px; margin: 0; }
+        li { margin-bottom: 10px; font-size: 15px; }
+        
+        .task-box { background-color: #0B1120; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .task-name { font-weight: bold; font-size: 16px; margin-bottom: 8px; color: white; }
+        .task-steps { color: #CBD5E1; font-size: 14px; }
+        
+        .warning-box { background-color: rgba(245, 158, 11, 0.1); padding: 15px; border-radius: 8px; margin-top: 20px; border-right: 4px solid #F59E0B;}
+        .warning-title { color: #F59E0B; font-weight: bold; margin-bottom: 10px; }
+        .deadline { text-align: center; background-color: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; margin-top: 25px; font-weight: bold; font-size: 16px; }
+
+        .btn-home {
+            display: block;
+            margin: 20px auto;
+            background-color: #334155;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
 
-    <div class="slider-container" id="slider">
-        
-        <!-- Slide 1: Intro -->
-        <div class="slide active">
-            <div class="content-box" style="text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 400px;">
-                <h1 style="margin: 0;">TrustFix</h1>
-                <p style="font-size: 1.5rem; color: #94a3b8; margin-top: 15px;">(SafeDeal ✖️ سيستم الصيانة)</p>
-            </div>
-        </div>
-
-        <!-- Slide 2: Project 1 -->
-        <div class="slide">
-            <div class="content-box">
-                <h2>الفكرة الأولى: منصة "ثقة" (SafeDeal) 🛡️</h2>
-                <p>عشان نكون على نور، منصة "ثقة" دي فكرتها باختصار إنها **أول سجل ائتماني رقمي للتجارة بين الشركات (B2B)**. الفكرة جات منين؟ السوق مليان ديون معدومة وشركات بتنصب وتهرب، وإحنا بنحل "السوق الأعمى" ده.</p>
-                <ul>
-                    <li>الفرق بينا وبين الـ I-Score: البنك بيشوف قروضك، لكن إحنا بنقيس <span class="highlight">السمعة التجارية (الالتزام بالتسليم والدفع)</span> بين الشركات وبعضها.</li>
-                    <li>**مؤشر الثقة (Trust Score 1000):** رقم بيزيد لما الشركة تلتزم وتقل لما تعك. ده بيبقى إنذار مبكر لأي حد قبل ما يمضي معاهم عقد.</li>
-                    <li>**غرفة النزاعات والفضح الرقمي:** لو شركة هربت، بنرفع إيصالاتها وننزل السكور بتاعها وندمر سمعتها الرقمية لحد ما تدفع.</li>
-                    <li>**الدفع الضامن (Escrow):** الفلوس بتتحجز في النص لحد ما الشغل يخلص، عشان نضمن حق الطرفين.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Slide 3: Project 2 -->
-        <div class="slide">
-            <div class="content-box">
-                <h2>الفكرة التانية: سيستم إدارة الصيانة 🔧</h2>
-                <p>دي بقى المشكلة اللي بتعاني منها كل (الشركات، الجامعات، المستشفيات، الفنادق). العشوائية في طلب الصيانة!</p>
-                <ul>
-                    <li>المشكلة الحالية: ضياع البلاغات، بطء الاستجابة، الفنيين بيلفوا عشوائي، والمدير ميعرفش العطل اتصلح ولا لأ بسبب إن الشغل كله <span class="highlight">بالورق والمكالمات التليفونية</span>.</li>
-                    <li>**الحل بتاعنا:** سيستم ذكي بيعمل Maintenance Ticket، أي موظف يعمل بلاغ بثانية.</li>
-                    <li>الإدارة بتتابع التيكت دي خطوة بخطوة (Live Tracking).</li>
-                    <li>الفني بيستلم المهمة على الموبايل بتاعه وبيعمل Update لما يخلص. مفيش حاجة اسمها "الورقة ضاعت يا فندم".</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Slide 4: The Merge -->
-        <div class="slide">
-            <div class="content-box">
-                <h2>الدمج العبقري: الماستر بيس 🧩</h2>
-                <p>تخيلوا بقى لو المستشفى اللي بتدور على صيانة دي، جابت شركة الصيانة من على منصتنا؟ هنا إحنا عملنا <span class="highlight">B2B Marketplace</span> متكامل للصيانة والتعاقدات!</p>
-                <ul>
-                    <li>**الطلب:** المستشفى بتدخل الأبلكيشن، تطلب صيانة.. السيستم بيعرضلها شركات الصيانة مترتبين حسب الـ <span class="highlight">Trust Score</span> بتاعهم. مفيش شركة نصابة هتظهر في الأول.</li>
-                    <li>**التعاقد:** المستشفى بتدفع فلوس الصيانة، بس الفلوس بتتحجز في <span class="highlight">الـ Escrow</span> جوه الأبلكيشن.</li>
-                    <li>**التنفيذ:** الفني بتاع شركة الصيانة بيروح يشتغل، وتيكت الصيانة شغالة بتحدث الحالة لحظة بلحظة زي ما اتفقنا.</li>
-                    <li>**التقييم الأوتوماتيك:** الفني خلص؟ الفلوس تتحول أوتوماتيك للشركة، والـ Trust Score بتاعهم يزيد. اتأخر أو بوظ الدنيا؟ الفلوس تقف في غرفة النزاعات والسكور بتاعهم يقع! ضربنا عصفورين بحجر واحد.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Slide 5: AI Team -->
-        <div class="slide">
-            <div class="content-box">
-                <h2>تقسيمة الشغل: فريق الذكاء الاصطناعي (4 أعضاء) 🤖</h2>
-                <p>الـ AI مش مجرد منظر هنا، دول اللي هيخلوا الأبلكيشن بيفكر لوحده. الـ 4 هيتقسموا كالتالي:</p>
-                <ul>
-                    <li><span class="badge">AI 1</span> **Predictive Maintenance:** ده هيعمل موديل بيتوقع إمتى التكييف المركزي أو المكن هيبوظ بناءً على الداتا القديمة، ويطلب الصيانة قبل ما الكارثة تحصل.</li>
-                    <li><span class="badge">AI 2</span> **Computer Vision:** اليوزر هيصور الماسورة المكسورة أو الجهاز العطلان.. الـ AI هيحلل الصورة ويعرف نوع العطل ويحوله للقسم المختص أوتوماتيك من غير تدخل بشري.</li>
-                    <li><span class="badge">AI 3</span> **Smart Dispatching:** لوغاريتم بيوزع الشغل على الفنيين بناءً على (مين أقرب في اللوكيشن، ومين فاضي دلوقتي) عشان ننجز وقت.</li>
-                    <li><span class="badge">AI 4</span> **NLP & Chatbot:** شات بوت بيفهم كلام اليوزر سواء تكست أو فويس نوت (زي "يا جماعة التكييف في الدور الرابع بينقط")، ويقوم محول الكلام ده لـ Ticket منظمة فيها المكان ونوع العطل.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Slide 6: Flutter Team -->
-        <div class="slide">
-            <div class="content-box">
-                <h2>تقسيمة الشغل: فريق الـ Flutter (4 أعضاء) 📱</h2>
-                <p>إحنا عندنا 3 واجهات مختلفة بتكلم بعض، وعمليات منطقية معقدة. الـ 4 هيتقسموا كالتالي:</p>
-                <ul>
-                    <li><span class="badge">Flutter 1</span> **Client/User App:** ده اللي هيعمل أبلكيشن المنشأة (المدير أو المستشفى)، شاشات طلب الصيانة، الدفع الضامن، ومتابعة السكور للشركات.</li>
-                    <li><span class="badge">Flutter 2</span> **Technician App:** ده هيعمل أبلكيشن الفني (خفيف وسريع بيشتغل في المواقع)، بيستقبل عليه الـ Tickets ويعمل Update للـ Status.</li>
-                    <li><span class="badge">Flutter 3</span> **Admin Dashboard:** هيعمل شاشات الويب للإدارة العليا، Dashboards ورسومات بيانية عشان يشوفوا حركة الفلوس وحالة الأعطال المفتوحة والمقفولة.</li>
-                    <li><span class="badge">Flutter 4 (Team Lead)</span> **Core & Logic:** المايسترو.. ده بتاع الـ State Management المعقدة، توليد عقود الـ PDF أوتوماتيك، والـ Business Logic اللي بيربط الـ 3 تطبيقات ببعض.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Slide 7: Backend Team -->
-        <div class="slide">
-            <div class="content-box">
-                <h2>تقسيمة الشغل: فريق الـ Backend (2 أعضاء) ⚙️️</h2>
-                <p>عصب المشروع، اللي بيظبط قواعد البيانات (Firebase / Firestore) عشان تستحمل الضغط والـ Real-time. متقسمين كالتالي:</p>
-                <ul>
-                    <li><span class="badge">Backend 1</span> **Maintenance Logic:** ده هيمسك هندسة قاعدة البيانات بتاعة تذاكر الصيانة. التيكت تتفتح وتتحدث في جزء من الثانية بين موبايل اليوزر والفني والداش بورد من غير تهنيج.</li>
-                    <li><span class="badge">Backend 2</span> **Trust & FinTech Logic:** ده بتاع الفلوس والـ Cloud Functions. هيبرمج نظام الـ Escrow المعقد، إزاي الفلوس تتحجز، وإزاي الـ Trust Score يتحدث أوتوماتيك لما التيكت تتقفل بناءً على المعادلات.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Slide 8: Data & Cyber -->
-        <div class="slide">
-            <div class="content-box">
-                <h2>تقسيمة الشغل: البيانات والأمن (2 أعضاء) 🔒📊</h2>
-                <p>علشان السيستم يكون جاهز يتباع للشركات والمؤسسات لازم نضمن الذكاء والأمان:</p>
-                <ul>
-                    <li><span class="badge">Data Analyst</span> **محلل البيانات:** ده اللي هيخترع معادلة الـ Trust Score! هيحلل داتا زي (سرعة استجابة الفني + جودة الصيانة + عدم تكرار العطل) ويطلع لنا رقم دقيق يعبر عن ثقة الشركة.</li>
-                    <li><span class="badge">Cybersecurity</span> **أمن المعلومات:** ده درع المشروع. وظيفته يحمي فلوس الـ Escrow من الاختراق، ويشفر بيانات المؤسسات والشركات عشان محدش يقدر يوصل للمخططات الهندسية بتاعتهم أو يعبث بالتقييمات بتاعت الـ Trust Score.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Slide 9: The Form (Google Form Embedded) -->
-        <div class="slide">
-            <div class="content-box">
-                <h2 style="text-align: center; display: block;">رأيك وتحديد التراك 📝</h2>
-                
-                <!-- Doctor's Distribution Note -->
-                <div style="margin: 15px 0; padding: 15px; background: rgba(251, 191, 36, 0.1); border-radius: 10px; border: 1px dashed #fbbf24; text-align: right; direction: rtl;">
-                    <h3 style="color: #fbbf24; margin-top: 0; font-size: 1.2rem;">📌 للتذكير (تقسيمة الدكتورة المبدئية):</h3>
-                    <p style="font-size: 1.1rem; margin: 5px 0; color: #e2e8f0;">🤖 <strong>الـ AI:</strong> زياد، توني، جوسيان، أحمد حسني.</p>
-                    <p style="font-size: 1.1rem; margin: 5px 0; color: #e2e8f0;">📱 <strong>الـ Flutter:</strong> محمود، سعيد، سارة، بسنت.</p>
-                    <p style="font-size: 1.1rem; margin: 5px 0; color: #e2e8f0;">⚙️ <strong>الـ Backend:</strong> مؤمن، مصطفى.</p>
-                    <p style="font-size: 1.1rem; margin: 5px 0; color: #e2e8f0;">🔒 <strong>الـ Cyber:</strong> تامر.</p>
-                    <p style="font-size: 1.1rem; margin: 5px 0; color: #e2e8f0;">📊 <strong>الـ Data Analysis:</strong> سيد.</p>
-                </div>
-
-                <p style="text-align: center;">سجل بياناتك في الفورم ده عشان نوزع المهام.</p>
-                
-                <!-- حاوية جوجل فورم -->
-                <div class="google-form-container">
-                    
-                    <!-- كود جوجل فورم النهائي -->
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSefTTnS3jj7mktlS9MHyi-OCk_7BPv6PbLTvRWTK0nOAbxx_Q/viewform?embedded=true" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-                    
-                </div>
-            </div>
-        </div>
-
+    <div class="header" id="main-header">
+        <h1>🚀 مهام الأسبوع الثاني - TrustFix</h1>
+        <p>يرجى اختيار فريقك وإدخال كلمة المرور المخصصة للوصول للمهام.</p>
     </div>
 
-    <!-- Controls -->
-    <div class="controls">
-        <button id="prevBtn" class="nav-btn" onclick="changeSlide(-1)" disabled>السابق</button>
-        <button id="nextBtn" class="nav-btn" onclick="changeSlide(1)">التالي</button>
+    <!-- القائمة الرئيسية -->
+    <div class="menu-container" id="main-menu">
+        <button class="team-btn flutter" onclick="openAuth('flutter', 'فريق Flutter')">📱 فريق Flutter <span>🔒</span></button>
+        <button class="team-btn backend" onclick="openAuth('backend', 'فريق Backend')">⚙️ فريق Backend <span>🔒</span></button>
+        <button class="team-btn ai" onclick="openAuth('ai', 'فريق الذكاء الاصطناعي')">🧠 فريق الـ AI <span>🔒</span></button>
+        <button class="team-btn data" onclick="openAuth('data', 'فريق البيانات والأمن')">📊 فريق البيانات والأمن <span>🔒</span></button>
     </div>
 
-    <!-- Progress bar -->
-    <div class="progress" id="progressBar"></div>
+    <!-- شاشة الباسورد -->
+    <div id="password-screen">
+        <h2 id="auth-title">إدخال كلمة المرور</h2>
+        <p>يرجى إدخال كلمة المرور الخاصة بـ <span id="auth-team-name" style="color:var(--flutter-color); font-weight:bold;"></span></p>
+        <input type="password" id="team-password" placeholder="كلمة المرور...">
+        <div id="error-msg">كلمة المرور غير صحيحة، حاول مرة أخرى!</div>
+        <div class="auth-btns">
+            <button class="btn-submit" onclick="checkPassword()">دخول</button>
+            <button class="btn-back" onclick="goHome()">رجوع</button>
+        </div>
+    </div>
+
+    <!-- محتوى فريق Flutter -->
+    <div id="content-flutter" class="team-content">
+        <div class="team-card flutter-card">
+            <h2 class="team-title">📱 فريق Flutter (سعيد، بسنت، سارة، محمود)</h2>
+            <div class="intro-text">
+                عاش جداً على التصميمات المبدئية. إحنا معانا براح لحد شهر 1 عشان نسلم الـ UI النهائي، فالتارجت بتاعنا الأسبوع ده خطوة بسيطة عشان نبني الأساس صح بدون ضغط.<br><br>
+                <em>(ملحوظة من محمود: يا سارة وبسنت، لو حد فيكم دخل في الـ Figma ولقى نفسه شاطر فيه وحابب يكمل كـ UI/UX Designer، مفيش مشكلة هنحوله بالكامل لـ UI، وأنا هشيل منه كل شغله في كود الـ Flutter).</em>
+            </div>
+            <h3>🤝 أسئلة نقاش جماعية (تناقشوا فيها قبل الشغل)</h3>
+            <ul>
+                <li><strong>يعني إيه State Management وليه منقدرش نستغنى عنها؟</strong> (إزاي الداتا بتتنقل من شاشة لـ شاشة بدون ما تضيع).</li>
+                <li><strong>إيه الفرق بين الـ Stateless والـ Stateful Widgets؟</strong> (إمتى نستخدم دي وإمتى دي).</li>
+                <li><strong>إزاي Flutter بيكلم الباك إيند؟</strong> (يعني إيه REST API وإزاي بنستقبل الـ JSON).</li>
+            </ul>
+            <h3>📌 توزيع المهام الفردية</h3>
+            <div class="task-box">
+                <div class="task-name">👤 سعيد (Team Leader) - بيئة العمل</div>
+                <div class="task-steps">1. كريت مشروع Flutter جديد.<br>2. قسّم الفولدرات بنظام Clean Architecture.<br>3. ارفع البروجكت على GitHub وضيف التيم.<br>4. جهز ملفات الألوان والخطوط (Theme).</div>
+            </div>
+            <div class="task-box">
+                <div class="task-name">👤 بسنت - تطبيق العميل</div>
+                <div class="task-steps">1. افتحي المشروع بعد ما سعيد يرفعه.<br>2. حولي شاشة واحدة بس (Login أو Splash) لـ Widgets.<br>3. اتأكدي إن الشاشة متجاوبة (Responsive).</div>
+            </div>
+            <div class="task-box">
+                <div class="task-name">👤 سارة - لوحة تحكم الشركة</div>
+                <div class="task-steps">1. اعملي الـ Scaffold الأساسي للوحة.<br>2. صممي القائمة الجانبية (Sidebar) اللي فيها زراير التنقل.</div>
+            </div>
+            <div class="task-box">
+                <div class="task-name">👤 محمود - تطبيق الفني</div>
+                <div class="task-steps">1. بناء الهيكل الأساسي للشاشة الرئيسية.<br>2. إضافة شريط التنقل السفلي (Bottom Navigation).</div>
+            </div>
+            <div class="warning-box">
+                <div class="warning-title">⚠️ أسئلة متوقعة من المعيد (جهزوا إجاباتها):</div>
+                <ul>
+                    <li><strong>لـ سعيد:</strong> ليه اخترت الـ State Management دي بالذات ومستخدمتش غيرها؟</li>
+                    <li><strong>لباقي التيم:</strong> إزاي بتضمنوا إن الـ UI ميبقاش بطيء على الموبايلات الضعيفة؟</li>
+                </ul>
+            </div>
+            <div class="deadline">⏳ الديدلاين: السبت 17 أكتوبر 2026</div>
+            <button class="btn-home" onclick="goHome()">🔙 العودة للقائمة الرئيسية</button>
+        </div>
+    </div>
+
+    <!-- محتوى فريق Backend -->
+    <div id="content-backend" class="team-content">
+        <div class="team-card backend-card">
+            <h2 class="team-title">⚙️ فريق Backend (جيمي، تميم)</h2>
+            <div class="intro-text">
+                عاش يا شباب على الـ Schema وتدفق الـ Escrow. قدامنا لشهر 1 عشان نخلص الـ DFD والـ Schema بشكلهم النهائي، فالأسبوع ده هناخد خطوة تسخين برمجي.
+            </div>
+            <h3>🤝 أسئلة نقاش جماعية (تناقشوا فيها قبل الشغل)</h3>
+            <ul>
+                <li><strong>يعني إيه RESTful APIs وازاي بنبنيها؟</strong> (إزاي الموبايل بيبعتلنا Request وإحنا بنرد عليه).</li>
+                <li><strong>إيه هو الـ Entity Framework وليه بنستخدمه؟</strong> (ليه Code-First أفضل من كتابة SQL يدوي؟).</li>
+                <li><strong>يعني إيه Escrow System برمجياً؟</strong> (إزاي بنعمل Status للفلوس إنها "مجمدة").</li>
+            </ul>
+            <h3>📌 توزيع المهام الفردية</h3>
+            <div class="task-box">
+                <div class="task-name">👤 جيمي - إعداد السيرفر وقاعدة البيانات</div>
+                <div class="task-steps">1. كريت مشروع ASP.NET Core Web API.<br>2. سطّب Entity Framework.<br>3. اكتب الكود الخاص بجدولين بس (مثلاً Users و Orders) كـ Models.</div>
+            </div>
+            <div class="task-box">
+                <div class="task-name">👤 تميم - تصميم الـ APIs للـ Escrow</div>
+                <div class="task-steps">1. امسك الـ Flowchart بتاع الفلوس.<br>2. حدد إحنا محتاجين كام Endpoint (للدفع، للتحويل، للاسترجاع).<br>3. اكتبهم في ملف وورد بسيط.</div>
+            </div>
+            <div class="warning-box">
+                <div class="warning-title">⚠️ أسئلة متوقعة من المعيد (جهزوا إجاباتها):</div>
+                <ul>
+                    <li><strong>لـ جيمي:</strong> ليه استخدمت Code-First Approach بدل Database-First؟</li>
+                    <li><strong>لـ تميم:</strong> لو السيرفر وقع والعميل بيدفع، إزاي هتضمن إن الفلوس متتخصمش في الهوا؟ (ابحث عن ACID Transactions).</li>
+                </ul>
+            </div>
+            <div class="deadline">⏳ الديدلاين: السبت 17 أكتوبر 2026</div>
+            <button class="btn-home" onclick="goHome()">🔙 العودة للقائمة الرئيسية</button>
+        </div>
+    </div>
+
+    <!-- محتوى فريق AI -->
+    <div id="content-ai" class="team-content">
+        <div class="team-card ai-card">
+            <h2 class="team-title">🧠 فريق الذكاء الاصطناعي (جوسيان، زياد، توني، أحمد)</h2>
+            <div class="intro-text">
+                تنويه مهم: إحنا عدلنا الخطة وهنستخدم Gemini API بدل ما ندرب Model من الصفر. ده هيوفر تكلفة ووقت الأجهزة وهيطلع مخرجات أدق.
+            </div>
+            <h3>🤝 أسئلة نقاش جماعية (تناقشوا فيها قبل الشغل)</h3>
+            <ul>
+                <li><strong>يعني إيه API وازاي هنستخدم Gemini؟</strong> (إزاي بنكلم سيرفرات جوجل نبعتلها صوره وترد بالتحليل).</li>
+                <li><strong>يعني إيه Dummy Data وليه بنستخدمها؟</strong> (ليه بنألف بيانات وهمية بدل ما نستنى بيانات حقيقية).</li>
+                <li><strong>يعني إيه Prompt Engineering؟</strong> (إزاي بنجبر الذكاء الاصطناعي يرد بصيغة JSON تناسب الباك إيند).</li>
+            </ul>
+            <h3>📌 توزيع المهام الفردية</h3>
+            <div class="task-box">
+                <div class="task-name">👤 جوسيان - بيانات الصيانة التنبؤية</div>
+                <div class="task-steps">1. افتحي شيت إكسيل.<br>2. اعملي أعمدة (تاريخ التركيب، ساعات الشغل، تاريخ العطل).<br>3. املي 10 صفوف بأرقام منطقية نجرب بيها الموديل.</div>
+            </div>
+            <div class="task-box">
+                <div class="task-name">👤 زياد - اختبار الصوتيات</div>
+                <div class="task-steps">1. ادخل على Google AI Studio.<br>2. ارفع ريكورد صوتي بيشرح عطل.<br>3. اكتب Prompt يحلل المشكلة وشوف النتيجة يدوياً.</div>
+            </div>
+            <div class="task-box">
+                <div class="task-name">👤 توني - اختبار الصور</div>
+                <div class="task-steps">1. ادخل على Google AI Studio.<br>2. ارفع صورة حقيقية لكسر أو عطل.<br>3. اطلب منه في الـ Prompt يرجع الوصف في صيغة JSON.</div>
+            </div>
+            <div class="task-box">
+                <div class="task-name">👤 أحمد - محرك التوجيه الذكي</div>
+                <div class="task-steps">1. ورقة وقلم واكتب خطوات اللوغاريتم (Pseudo-code).<br>2. حدد إزاي هتحسب المسافة.<br>3. إزاي هتدخل الـ Trust Score في الاختيار للترجيح بين الفنيين.</div>
+            </div>
+            <div class="warning-box">
+                <div class="warning-title">⚠️ أسئلة متوقعة من المعيد (جهزوا إجاباتها):</div>
+                <ul>
+                    <li><strong>لـ جوسيان:</strong> إيه أهم المتغيرات (Features) اللي بتأثر فعلاً في التوقع؟</li>
+                    <li><strong>لـ زياد وتوني:</strong> إزاي نضمن إن الـ API دايماً هيرجع JSON سليم وميضربش Error؟</li>
+                    <li><strong>لـ أحمد:</strong> لو 3 فنيين على نفس المسافة ونفس التقييم، السيستم هيختار مين وليه؟</li>
+                </ul>
+            </div>
+            <div class="deadline">⏳ الديدلاين: السبت 17 أكتوبر 2026</div>
+            <button class="btn-home" onclick="goHome()">🔙 العودة للقائمة الرئيسية</button>
+        </div>
+    </div>
+
+    <!-- محتوى فريق Data & Sec -->
+    <div id="content-data" class="team-content">
+        <div class="team-card data-card">
+            <h2 class="team-title">📊 فريق البيانات والأمن (سيد، تامر)</h2>
+            <div class="intro-text">
+                شغلكم هو اللي هيقفل السيستم ويخليه آمن ومنطقي للشركات كـ B2B.
+            </div>
+            <h3>🤝 أسئلة نقاش جماعية (تناقشوا فيها قبل الشغل)</h3>
+            <ul>
+                <li><strong>إيه هي الـ Edge Cases وليه لازم نختبر بيها؟</strong> (ليه بنحط أرقام متطرفة جداً في الـ Trust Score).</li>
+                <li><strong>يعني إيه Data Isolation؟</strong> (إزاي نضمن إن شركة مستحيل تشوف بيانات شركة تانية).</li>
+            </ul>
+            <h3>📌 توزيع المهام الفردية</h3>
+            <div class="task-box">
+                <div class="task-name">👤 سيد - محلل البيانات</div>
+                <div class="task-steps">1. افتح شيت الإكسيل اللي سلمته.<br>2. زوّد العمليات لـ 20 أو 30 عملية.<br>3. حط أرقام متطرفة (فني ممتاز وفني سيء) واتأكد إن المعادلة مبتطلعش أرقام سالبة.</div>
+            </div>
+            <div class="task-box">
+                <div class="task-name">👤 تامر - الأمن السيبراني</div>
+                <div class="task-steps">1. راجع الـ Schema بتاعت جيمي.<br>2. راجع الـ Flowchart بتاع تميم.<br>3. طلّع 3 ثغرات أو ملاحظات أمنية محتملة واكتبهم في ملف وورد.</div>
+            </div>
+            <div class="warning-box">
+                <div class="warning-title">⚠️ أسئلة متوقعة من المعيد (جهزوا إجاباتها):</div>
+                <ul>
+                    <li><strong>لـ سيد:</strong> على أي أساس حددت الأوزان (النسب) في معادلة الثقة؟</li>
+                    <li><strong>لـ تامر:</strong> إزاي نمنع موظف في شركة صيانة إنه يخترق السيستم ويشوف بيانات منافس؟</li>
+                </ul>
+            </div>
+            <div class="deadline">⏳ الديدلاين: السبت 17 أكتوبر 2026</div>
+            <button class="btn-home" onclick="goHome()">🔙 العودة للقائمة الرئيسية</button>
+        </div>
+    </div>
 
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const progressBar = document.getElementById('progressBar');
+        const passwords = {
+            'flutter': 'Flut@26X',
+            'backend': 'Core#99Z',
+            'ai': 'Gemini!77',
+            'data': 'Sec$Data4'
+        };
 
-        function updateSlider() {
-            slides.forEach((slide, index) => {
-                if (index === currentSlide) {
-                    slide.classList.add('active');
-                } else {
-                    slide.classList.remove('active');
-                }
-            });
+        let currentTeam = '';
 
-            prevBtn.disabled = currentSlide === 0;
-            nextBtn.disabled = currentSlide === slides.length - 1;
-
-            const progress = ((currentSlide + 1) / slides.length) * 100;
-            progressBar.style.width = progress + '%';
+        function openAuth(teamId, teamName) {
+            currentTeam = teamId;
+            document.getElementById('main-menu').style.display = 'none';
+            document.getElementById('main-header').style.display = 'none';
+            document.getElementById('password-screen').style.display = 'block';
+            document.getElementById('auth-team-name').innerText = teamName;
+            document.getElementById('team-password').value = '';
+            document.getElementById('error-msg').style.display = 'none';
         }
 
-        function changeSlide(direction) {
-            currentSlide += direction;
-            if (currentSlide < 0) currentSlide = 0;
-            if (currentSlide >= slides.length) currentSlide = slides.length - 1;
-            updateSlider();
+        function checkPassword() {
+            const inputVal = document.getElementById('team-password').value;
+            if (inputVal === passwords[currentTeam]) {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('content-' + currentTeam).style.display = 'block';
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
         }
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
-                if (currentSlide > 0) changeSlide(-1);
-            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
-                if (currentSlide < slides.length - 1) changeSlide(1);
+        function goHome() {
+            document.getElementById('password-screen').style.display = 'none';
+            document.querySelectorAll('.team-content').forEach(el => el.style.display = 'none');
+            document.getElementById('main-menu').style.display = 'flex';
+            document.getElementById('main-header').style.display = 'block';
+        }
+
+        // دعم الضغط على زر Enter لإدخال الباسورد
+        document.getElementById("team-password").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                checkPassword();
             }
         });
-
-        updateSlider();
     </script>
 </body>
 </html>
